@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ProdutoServerImpService WSDL service -->
+
+  <service name="ProdutoServerImp" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soap.webService.com.br"/>
+      <parameter name="wsdlServiceElement" value="ProdutoServerImpService"/>
+      <parameter name="schemaQualified" value="http://entidade.webService.com.br,http://soap.webService.com.br"/>
+      <parameter name="wsdlServicePort" value="ProdutoServerImp"/>
+      <parameter name="className" value="br.com.webService.soap.ProdutoServerImp"/>
+      <parameter name="wsdlPortType" value="ProdutoServerImp"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://soap.webService.com.br" xmlns:retNS="http://soap.webService.com.br" xmlns:rtns="http://entidade.webService.com.br" name="getProduto" qname="operNS:getProduto" returnQName="retNS:getProdutoReturn" returnType="rtns:Produto" soapAction="">
+        <parameter xmlns:pns="http://soap.webService.com.br" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.webService.com.br" xmlns:retNS="http://soap.webService.com.br" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteProduto" qname="operNS:deleteProduto" returnQName="retNS:deleteProdutoReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.webService.com.br" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.webService.com.br" xmlns:retNS="http://soap.webService.com.br" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="editProduto" qname="operNS:editProduto" returnQName="retNS:editProdutoReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.webService.com.br" xmlns:tns="http://entidade.webService.com.br" qname="pns:p" type="tns:Produto"/>
+        <parameter xmlns:pns="http://soap.webService.com.br" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.webService.com.br" xmlns:retNS="http://soap.webService.com.br" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addProduto" qname="operNS:addProduto" returnQName="retNS:addProdutoReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.webService.com.br" xmlns:tns="http://entidade.webService.com.br" qname="pns:p" type="tns:Produto"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.webService.com.br" xmlns:retNS="http://soap.webService.com.br" xmlns:rtns="http://soap.webService.com.br" xmlns:tns="http://soap.webService.com.br" name="getProdutos" qname="operNS:getProdutos" returnQName="retNS:getProdutosReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="addProduto editProduto getProdutos deleteProduto getProduto"/>
+
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;editProdutoResponse" type="java:br.com.webService.soap.EditProdutoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://soap.webService.com.br" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://entidade.webService.com.br" qname="ns:Produto" type="java:br.com.webService.entidade.Produto" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;getProdutoResponse" type="java:br.com.webService.soap.GetProdutoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;addProdutoResponse" type="java:br.com.webService.soap.AddProdutoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;deleteProduto" type="java:br.com.webService.soap.DeleteProduto" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;editProduto" type="java:br.com.webService.soap.EditProduto" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;getProduto" type="java:br.com.webService.soap.GetProduto" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;getProdutos" type="java:br.com.webService.soap.GetProdutos" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;addProduto" type="java:br.com.webService.soap.AddProduto" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;deleteProdutoResponse" type="java:br.com.webService.soap.DeleteProdutoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://soap.webService.com.br" qname="ns:&gt;getProdutosResponse" type="java:br.com.webService.soap.GetProdutosResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
